@@ -7,7 +7,7 @@
     "withGlobalTauri": false
   },
   "package": {
-    "productName": "tauri-app",
+    "productName": "xMeta",
     "version": "0.0.0"
   },
   "tauri": {
@@ -62,8 +62,15 @@
         "fullscreen": false,
         "height": 600,
         "resizable": true,
-        "title": "tauri-app",
-        "width": 800
+        "title": "xMeta",
+        "width": 800,
+        "visible": false
+      },{
+        "width": 400,
+        "height": 200,
+        "decorations": false,
+        "url": "splashscreen.html",
+        "label": "splashscreen"
       }
     ]
   }
