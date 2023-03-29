@@ -1,6 +1,7 @@
 import express from 'express';
 import axios from 'axios';
 import jsSha1 from 'js-sha1';
+import * as fs from "fs";
 
 const router = express.Router();
 
@@ -12,10 +13,11 @@ let weinJson = {
 }
 try {
 
-    weinJson = require('/root/weixin/weixin.json');
-
+    const flag = fs.existsSync('/root/weixin/weixin.json');
+    if(flag) {
+        weinJson = JSON.parse(fs.readFileSync('/root/weixin/weixin.json',"utf8"));
+    }
 } catch (e) {
-
 
 }
 

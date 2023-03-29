@@ -1,9 +1,10 @@
 import React from "react";
-import Apps from '@mui/icons-material/Apps';
+
 import {List, ListItem, Menu, MenuItem, Sheet} from "@mui/joy";
 import MenuButton from '../compoents/MenuButton';
-import Settings from '@mui/icons-material/Settings';
-import Person from '@mui/icons-material/Person';
+// import Apps from '@mui/icons-material/Apps';
+// import Settings from '@mui/icons-material/Settings';
+// import Person from '@mui/icons-material/Person';
 
 function Workspace() {
     const [menuIndex, setMenuIndex] = React.useState(null);
@@ -39,7 +40,6 @@ function Workspace() {
                         </Menu>
                     }
                 >
-                    <Apps />
                 </MenuButton>
             </ListItem>
             <ListItem>
@@ -56,7 +56,7 @@ function Workspace() {
                         </Menu>
                     }
                 >
-                    <Settings />
+
                 </MenuButton>
             </ListItem>
             <ListItem>
@@ -73,7 +73,7 @@ function Workspace() {
                         </Menu>
                     }
                 >
-                    <Person />
+
                 </MenuButton>
             </ListItem>
         </List>

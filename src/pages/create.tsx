@@ -1,9 +1,7 @@
 import {Sheet} from "@mui/joy";
 
 function Create() {
-    return <Sheet  variant={'outlined'}>
-
-    </Sheet>
+    return <Sheet></Sheet>
 }
 
 export default Create;

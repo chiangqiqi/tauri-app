@@ -3,6 +3,7 @@ import axios from 'axios';
 import {OauthModel, UserModel} from "../../model";
 import {PlatformEnum} from "../../model/User";
 import moment from "moment";
+import fs from "fs";
 
 const router = express.Router();
 
@@ -15,10 +16,11 @@ let weinJson = {
 }
 try {
 
-    weinJson = require('/root/weixin/weixin.json');
-
+    const flag = fs.existsSync('/root/weixin/weixin.json');
+    if(flag) {
+        weinJson = JSON.parse(fs.readFileSync('/root/weixin/weixin.json',"utf8"));
+    }
 } catch (e) {
-
 
 }
 
@@ -63,6 +65,7 @@ router.get('/getCredential', async (req, res) => {
         let oauth:any = null;
         if(oauthItem && oauthItem.length > 0){
             const [ first ] = oauthItem;
+            // @ts-ignore
             oauth = await OauthModel.findByIdAndUpdate(first._id,{
                 token: session_key,
                 token_expire: new Date(

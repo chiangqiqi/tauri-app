@@ -1,17 +1,12 @@
 import React from "react";
-import {Box, Sheet} from "@mui/joy";
+import {Box} from "@mui/joy";
 
 import useSwr from 'swr'
 import {Test} from "../interfaces";
 import Paper from "@mui/material/Paper";
 import {useRouter} from "next/router";
 import Navigation from "../compoents/Navigation";
-import {
-    Home as HomeIcon,
-    Info as InfoIcon,
-    Contacts as ContactIcon,
 
-} from '@mui/icons-material';
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json())
 
@@ -19,17 +14,17 @@ const items = [
     {
         label: 'Home',
         href: '/',
-        icon: <HomeIcon />,
+        icon: <div>Home</div>,
     },
     {
         label: 'About',
         href: '/about',
-        icon: <InfoIcon />,
+        icon: <div>About</div>,
     },
     {
         label: 'Contact',
         href: '/contact',
-        icon: <ContactIcon />,
+        icon: <div>Contact</div>,
     },
 ];
 
@@ -51,7 +46,7 @@ function Papers() {
 
         {
             data.map(({title}, id)=>{
-                return <Paper index={id} elevation={3} onClick={()=> router.push(`/paper/${id}`)} />
+                return <Paper elevation={3} onClick={()=> router.push(`/paper/${id}`)} />
             })
         }
     </Box></>);

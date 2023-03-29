@@ -3,8 +3,6 @@ import { useState } from 'react';
 import { Box, Button, Container, Grid, TextField, Typography } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { grey } from '@mui/material/colors';
-import useSwr from "swr";
-import {Test} from "../interfaces";
 // 定义配色方案
 const theme = createTheme({
     palette: {

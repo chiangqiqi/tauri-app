@@ -12,6 +12,7 @@ export default async function handler(req, res){
             } = JSON.parse(req.body);
             try {
                 await dbConnect();
+                // @ts-ignore
                 const userList:any = await UserModel.find({username})
                 if(userList.length > 0) {
                     const [ first ] = userList;
@@ -20,6 +21,7 @@ export default async function handler(req, res){
                         const {
                             id
                         } = first;
+                        // @ts-ignore
                         const user: any = await  UserModel.findByIdAndUpdate(id,{
                             token: id,
                         }).select({

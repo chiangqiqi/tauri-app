@@ -19,7 +19,7 @@ function App() {
         >
             {
                 [1,2,3].map((id)=>{
-                    return <Paper index={id} elevation={3} onClick={()=> router.push(`/paper/${id}`)} />
+                    return <Paper elevation={3} onClick={()=> router.push(`/paper/${id}`)} />
                 })
             }
         </Box>);

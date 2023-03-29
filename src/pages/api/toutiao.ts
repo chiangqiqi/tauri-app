@@ -70,6 +70,7 @@ router.get('/getCredential', async (req, res) => {
         let oauth:any = null;
         if(oauthItem && oauthItem.length > 0){
             const [ first ] = oauthItem;
+            // @ts-ignore
             oauth = await OauthModel.findByIdAndUpdate(first._id,{
                 token: session_key,
                 token_expire: new Date(

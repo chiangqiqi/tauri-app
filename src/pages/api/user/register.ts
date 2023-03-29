@@ -16,6 +16,7 @@ export default async function userHandler(req, res) {
             try {
                 await dbConnect();
                 if(confirmPwd === password) {
+                    // @ts-ignore
                     const userList:any = await UserModel.find({username});
                     if(userList.length > 0){
                         return res.send(ResData.failed(-1,'用户名已存在'));

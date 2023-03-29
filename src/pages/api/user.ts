@@ -14,6 +14,7 @@ router.post('/login', async (req, res) => {
         password
     } = req.body;
     try {
+        // @ts-ignore
         const userList:any = await UserModel.find({username})
         if(userList.length > 0) {
             const [ first ] = userList;
@@ -22,6 +23,7 @@ router.post('/login', async (req, res) => {
                 const {
                     id
                 } = first;
+                // @ts-ignore
                 const user: any = await  UserModel.findByIdAndUpdate(id,{
                     token: id,
                 }).select({
@@ -88,6 +90,7 @@ router.post('/register', async (req, res) => {
 router.get('/profile', async (req, res) => {
     const { token } = req.query;
     try {
+        // @ts-ignore
         const user = await UserModel.findById(token).select({
             token:1,
             name:1,
@@ -121,6 +124,7 @@ router.post('/updateInfo',Authentication, async (req, res) => {
         userId
     } = userInfo;
     try {
+        // @ts-ignore
         const user = await UserModel.findByIdAndUpdate(userId,{
             name,
             avatarUrl,
@@ -131,6 +135,7 @@ router.post('/updateInfo',Authentication, async (req, res) => {
         },{
             new: true
         })
+        // @ts-ignore
         const oauth = await OauthModel.findOneAndUpdate({
             userId,
             platform:platform

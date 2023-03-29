@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { AppBar, Toolbar, IconButton, Typography, Drawer, List, ListItem, ListItemIcon, ListItemText, Button } from '@mui/material';
-import MenuIcon from '@mui/icons-material/Menu';
 import {styled} from "@mui/material/styles"
 import {useRouter} from "next/router";
 const NavMenu = styled(List)`
@@ -103,7 +102,7 @@ const Nav = ({ title, items }: Props) => {
         <AppBar position="static">
             <Toolbar>
                 <NavDrawerButton edge="start" onClick={() => setIsMobileNavOpen(true)}>
-                    <MenuIcon />
+
                 </NavDrawerButton>
                 <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                     {title}

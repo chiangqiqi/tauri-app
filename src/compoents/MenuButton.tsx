@@ -89,9 +89,9 @@ function MenuButton({ children, menu, open, onOpen, onLeaveMenu, label, ...props
                 placement: 'right-start',
                 sx: {
                     width: 288,
-                    [`& .${menuClasses.listbox}`]: {
-                        '--List-padding': 'var(--List-divider-gap)',
-                    },
+                    // [`& .${menuClasses?.listbox}`]: {
+                    //     '--List-padding': 'var(--List-divider-gap)',
+                    // },
                 },
             })}
         </React.Fragment>
