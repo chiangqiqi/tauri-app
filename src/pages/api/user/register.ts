@@ -19,7 +19,7 @@ export default async function userHandler(req, res) {
                     // @ts-ignore
                     const userList:any = await UserModel.find({username});
                     if(userList.length > 0){
-                        return res.send(ResData.failed(-1,'用户名已存在'));
+                        return res.send(global.ResData.failed(-1,'用户名已存在'));
                     }
 
                     const user = new UserModel({
@@ -30,17 +30,17 @@ export default async function userHandler(req, res) {
                     });
                     const result = await user.save();
                     if(result) {
-                        const resJson: ResponseJson = ResData.successInfo(1, '注册成功',);
+                        const resJson: ResponseJson = global.ResData.successInfo(1, '注册成功',);
                         return res.status(200).json(resJson);
                     } else {
-                        return res.send(ResData.failed(-1,'注册失败'));
+                        return res.send(global.ResData.failed(-1,'注册失败'));
                     }
 
                 } else {
-                    return res.send(ResData.failed(-1,'确认密码两次不一致'));
+                    return res.send(global.ResData.failed(-1,'确认密码两次不一致'));
                 }
             } catch (e) {
-                return res.send(ResData.failed(-1,e.message));
+                return res.send(global.ResData.failed(-1,e.message));
             }
             break;
         case 'GET':

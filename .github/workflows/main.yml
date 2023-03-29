@@ -42,7 +42,7 @@ jobs:
 #          username: "root"
 #          key: ${{ secrets.ECS_KEY }}
 #          fingerprint: ${{ secrets.FINGERPRINT }}
-#          port: "80"
+#          port: "22"
 #          script: |
 #            cd ~
 #            docker-compose -f ./docker-compose-chejj/docker-compose.yml pull

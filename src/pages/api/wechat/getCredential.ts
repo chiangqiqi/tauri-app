@@ -1,11 +1,8 @@
-import express from 'express';
 import axios from 'axios';
-import {OauthModel, UserModel} from "../../model";
-import {PlatformEnum} from "../../model/User";
+import {OauthModel, UserModel} from "../../../model";
+import {PlatformEnum} from "../../../model/User";
 import moment from "moment";
 import fs from "fs";
-
-const router = express.Router();
 
 let weinJson = {
     "appid": "",
@@ -24,7 +21,7 @@ try {
 
 }
 
-router.get('/getCredential', async (req, res) => {
+export default async function getCredential (req, res){
     const {
         code,
         platform,
@@ -37,7 +34,7 @@ router.get('/getCredential', async (req, res) => {
             openid
         } = result.data || {};
         if(!openid) {
-            return res.send(ResData.failed(-1,'openId 缺失'));
+            return res.send(global.ResData.failed(-1,'openId 缺失'));
         }
         const oauthItem:any = await OauthModel.aggregate([
             {
@@ -96,17 +93,15 @@ router.get('/getCredential', async (req, res) => {
         const {
             token
         } = oauth;
-        const resJson: ResponseJson = ResData.success({
+        const resJson: ResponseJson = global.ResData.success({
             token
         });
         return res.status(200).json(resJson);
 
     } catch (e) {
 
-        return res.send(ResData.failed(-1,e.message));
+        return res.send(global.ResData.failed(-1,e.message));
         //https://developer.toutiao.com/api/apps/token?appid=tt764500f8e97dd52b&secret=c28c924b44184f43ba65cd20cc34f7e28a4075b0&grant_type=client_credential'
     }
 
-
-})
-export default router;
+}

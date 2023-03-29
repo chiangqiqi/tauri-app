@@ -54,7 +54,7 @@ const Authentication = async (req,res,next)=>{
         }
     }
 
-    return res.send(ResData.failed(-101,'用户身份无效'));
+    return res.send(global.ResData.failed(-101,'用户身份无效'));
 };
 
 export default Authentication;

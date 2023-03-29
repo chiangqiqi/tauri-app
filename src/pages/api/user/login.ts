@@ -35,7 +35,7 @@ export default async function handler(req, res){
                             username,
                             description
                         } = user
-                        const resJson: ResponseJson = ResData.success({
+                        const resJson: ResponseJson = global.ResData.success({
                             token,
                             name,
                             username,
@@ -43,13 +43,13 @@ export default async function handler(req, res){
                         });
                         return res.status(200).json(resJson);
                     } else {
-                        return res.send(ResData.failed(-1,'密码错误'));
+                        return res.send(global.ResData.failed(-1,'密码错误'));
                     }
                 } else {
-                    return res.send(ResData.failed(-1,'该用户不存在'));
+                    return res.send(global.ResData.failed(-1,'该用户不存在'));
                 }
             } catch (e) {
-                return res.send(ResData.failed(-1,e.message));
+                return res.send(global.ResData.failed(-1,e.message));
             }
             break;
         case 'GET':
