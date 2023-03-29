@@ -4,6 +4,7 @@ import { Box, Button, Container, Grid, TextField, Typography } from '@mui/materi
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { grey } from '@mui/material/colors';
 import {useRouter} from "next/router";
+import Link from "next/link";
 // 定义配色方案
 const theme = createTheme({
     palette: {
@@ -91,6 +92,9 @@ const Login = () => {
                                         <Button fullWidth variant="contained" color="primary" type="submit">
                                             登陆
                                         </Button>
+                                    </Grid>
+                                    <Grid item xs={12} alignItems='center'>
+                                       <Link href={'/register'}>注册</Link>
                                     </Grid>
                                 </Grid>
                             </Box>

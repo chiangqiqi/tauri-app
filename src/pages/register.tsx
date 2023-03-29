@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { Box, Button, Container, Grid, TextField, Typography } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { grey } from '@mui/material/colors';
+import {useRouter} from "next/router";
 // 定义配色方案
 const theme = createTheme({
     palette: {
@@ -27,9 +28,10 @@ const theme = createTheme({
     },
 });
 const Register = () => {
-    const [username, setUsername] = useState('123');
-    const [password, setPassword] = useState('123');
-    const [confirmPassword, setConfirmPassword] = useState('123');
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+    const router = useRouter();
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         // 处理注册逻辑
@@ -40,7 +42,14 @@ const Register = () => {
                 password,
                 confirmPwd: confirmPassword
             })
-        }).then((res) => res.json())
+        }).then((res) => res.json()).then((data)=>{
+            const {
+                success
+            } = data;
+            if(success) {
+                router.push('/papers')
+            }
+        })
     };
     return (
         <ThemeProvider theme={theme}>

@@ -33,7 +33,8 @@ const MobileNavMenuItem = styled(ListItem)`
   font-size: 16px;
   font-weight: 600;
   &:hover {
-    color: ${({ theme }) => theme.palette.secondary.main};
+    color: #00ff00;
+    cursor: pointer;
   }
 `;
 const NavButton = styled(Button)`
@@ -61,17 +62,35 @@ const NavDrawer = styled(Drawer)`
 `;
 const NavLink = styled(Link)`
   text-decoration: none;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 type NavItem = {
     label: string;
     href: string;
-    icon: React.ReactElement;
+    icon?: React.ReactElement;
 };
 type Props = {
     title: string;
-    items: NavItem[];
+    items?: NavItem[];
 };
-const Nav = ({ title, items }: Props) => {
+
+const itemsList = [
+    {
+        label: '首页',
+        href: '/',
+    },
+    {
+        label: '关于',
+        href: '/about',
+    },
+    {
+        label: '联系我们',
+        href: '/contact',
+    },
+];
+const Nav = ({ title, items = itemsList }: Props) => {
     const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
     const router = useRouter();
     const renderNavItems = () => {
@@ -91,7 +110,7 @@ const Nav = ({ title, items }: Props) => {
             return (
                 <NavLink href={href} key={href}>
                     <MobileNavMenuItem >
-                        <ListItemIcon>{icon}</ListItemIcon>
+                        <ListItemIcon>{icon?icon:''}</ListItemIcon>
                         <ListItemText primary={label} />
                     </MobileNavMenuItem>
                 </NavLink>
@@ -110,7 +129,7 @@ const Nav = ({ title, items }: Props) => {
                 <NavMenu>
                     {renderNavItems()}
                 </NavMenu>
-                <NavButton variant="text" onClick={()=>router.push('/login')}>Login</NavButton>
+                <NavButton variant="text" onClick={()=>router.push('/login')}>登陆</NavButton>
             </Toolbar>
             <NavDrawer anchor="left" open={isMobileNavOpen} onClose={() => setIsMobileNavOpen(false)}>
                 <MobileNavMenu>
