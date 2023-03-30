@@ -52,25 +52,25 @@ function AnswerCard(props) {
           )}
         </Box>
       ))}
-      <RadioGroup>
-        {questions.map((q, index) => (
-          <Box key={q.id}>
-            <Typography variant="body1" gutterBottom>{q.id}. {q.question}</Typography>
-            <OptionsContainer>
-              {q.options.map((option, optionIndex) => (
-                <FormControlLabel
-                  key={optionIndex}
-                  value={String.fromCharCode(65 + optionIndex)}
-                  control={<Radio color="primary" />}
-                  label={`${String.fromCharCode(65 + optionIndex)}. ${option}`}
-                  onChange={(event) => handleChange(event, index)}
-                  disabled={showResults}
-                />
-              ))}
-            </OptionsContainer>
-          </Box>
-        ))}
-      </RadioGroup>
+      {questions.map((q, index) => (
+        <Box key={q.id}>
+          <Typography variant="body1" gutterBottom>{q.id}. {q.question}</Typography>
+          <RadioGroup
+            value={answers[index]}
+            onChange={(event) => handleChange(event, index)}
+            disabled={showResults}
+          >
+            {q.options.map((option, optionIndex) => (
+              <FormControlLabel
+                key={optionIndex}
+                value={String.fromCharCode(65 + optionIndex)}
+                control={<Radio color="primary" />}
+                label={`${String.fromCharCode(65 + optionIndex)}. ${option}`}
+              />
+            ))}
+          </RadioGroup>
+        </Box>
+      ))}
       {!showResults ? (
         <Box sx={{ display: 'flex', justifyContent: 'center' }}>
           <Button variant="contained" color="primary" onClick={handleCheckAnswers}>Check Answers</Button>
