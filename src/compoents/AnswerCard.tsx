@@ -1,58 +1,87 @@
-import React, { useState } from "react";
-import { Typography, Box, Grid, Paper, Button } from "@mui/material";
+import React, { useState } from 'react';
+import { Box, Typography, FormControlLabel, Radio, RadioGroup, Button } from '@mui/material';
+import { styled } from '@mui/system';
 
-interface AnswerCardProps {
-    questions: object[];
-}
+const AnswerContainer = styled(Box)(({ theme }) => ({
+  marginBottom: theme.spacing(4),
+}));
 
-const AnswerCard: React.FC<AnswerCardProps> = ({ questions }) => {
-    const [selectedAnswers, setSelectedAnswers] = useState<string[]>([]);
+const OptionsContainer = styled(Box)(({ theme }) => ({
+  marginLeft: theme.spacing(2),
+}));
 
-    const handleSelectAnswer = (questionIndex: number, answer: string) => {
-        const updatedAnswers = [...selectedAnswers];
-        updatedAnswers[questionIndex] = answer;
-        setSelectedAnswers(updatedAnswers);
-    };
+function AnswerCard(props) {
+  const { questions } = props;
+  const [answers, setAnswers] = useState(new Array(questions.length).fill(null));
+  const [showResults, setShowResults] = useState(false);
 
-    return (
-        <Box sx={{ flexGrow: 1 }}>
-            <Grid container spacing={2} alignItems="center">
-                {questions.map(({question, options}: any, index) => (
-                    <Grid item xs={12} key={index}>
-                        <Paper sx={{ padding: "1rem" }}>
-                            <Typography variant="body1">{question}</Typography>
-                            <Box sx={{ marginTop: "1rem" }}>
-                                {
-                                    options.map((v,k)=>{
-                                        let answer = '';
-                                        switch (k){
-                                            case 0:
-                                                answer = 'A';
-                                                break;
-                                            case 1:
-                                                answer = 'B';
-                                                break;
-                                            case 2:
-                                                answer = 'C';
-                                                break;
-                                            case 3:
-                                                answer = 'D';
-                                                break;
+  const handleChange = (event, index) => {
+    const newAnswers = [...answers];
+    newAnswers[index] = event.target.value;
+    setAnswers(newAnswers);
+  };
 
-                                        }
-                                        return (<Button
-                                            variant={selectedAnswers[index] === answer ? "contained" : "outlined"}
-                                            onClick={() => handleSelectAnswer(index, answer)}
-                                        >{answer}</Button>)
-                                    })
-                                }
-                            </Box>
-                        </Paper>
-                    </Grid>
-                ))}
-            </Grid>
+  const handleCheckAnswers = () => {
+    setShowResults(true);
+  };
+
+  const handleReset = () => {
+    setAnswers(new Array(questions.length).fill(null));
+    setShowResults(false);
+  };
+
+  const getResultColor = (answer, correctAnswer) => {
+    if (answer === correctAnswer) {
+      return 'green';
+    } else {
+      return 'red';
+    }
+  };
+
+  return (
+    <AnswerContainer>
+      {questions.map((q, index) => (
+        <Box key={q.id} sx={{ display: showResults ? 'flex' : 'none', alignItems: 'center', marginBottom: 1 }}>
+          <Typography variant="body1">{q.id}. {q.question}</Typography>
+          {showResults && (
+            <Box sx={{ marginLeft: 1 }}>
+              <Typography variant="body1" style={{ color: getResultColor(answers[index], q.answer[0]) }}>
+                ({answers[index] === q.answer[0] ? 'Correct' : 'Incorrect'})
+              </Typography>
+            </Box>
+          )}
         </Box>
-    );
-};
+      ))}
+      {questions.map((q, index) => (
+        <Box key={q.id}>
+          <Typography variant="body1" gutterBottom>{q.id}. {q.question}</Typography>
+          <RadioGroup
+            value={answers[index]}
+            onChange={(event) => handleChange(event, index)}
+            disabled={showResults}
+          >
+            {q.options.map((option, optionIndex) => (
+              <FormControlLabel
+                key={optionIndex}
+                value={String.fromCharCode(65 + optionIndex)}
+                control={<Radio color="primary" />}
+                label={`${String.fromCharCode(65 + optionIndex)}. ${option}`}
+              />
+            ))}
+          </RadioGroup>
+        </Box>
+      ))}
+      {!showResults ? (
+        <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+          <Button variant="contained" color="primary" onClick={handleCheckAnswers}>Check Answers</Button>
+        </Box>
+      ) : (
+        <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 2 }}>
+          <Button variant="contained" color="primary" onClick={handleReset}>Reset</Button>
+        </Box>
+      )}
+    </AnswerContainer>
+  );
+}
 
 export default AnswerCard;
