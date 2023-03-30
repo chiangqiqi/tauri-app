@@ -58,13 +58,12 @@ function AnswerCard(props) {
           <RadioGroup
             value={answers[index]}
             onChange={(event) => handleChange(event, index)}
-            disabled={showResults}
           >
             {q.options.map((option, optionIndex) => (
               <FormControlLabel
                 key={optionIndex}
                 value={String.fromCharCode(65 + optionIndex)}
-                control={<Radio color="primary" />}
+                control={<Radio color="primary" disabled={showResults} />}
                 label={`${String.fromCharCode(65 + optionIndex)}. ${option}`}
               />
             ))}
